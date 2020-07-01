@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang = "en">
+
+<head>
+  <title>Derivabator</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=MuseoModerno|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+  <!-- Material Kit CSS -->
+  <link href="material-kit-master/assets/css/material-kit.css?v=2.0.7" rel="stylesheet" />
+  <!-- MathJax for equations -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6">
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+<body>
+  <nav class="navbar navbar-color-on-scroll fixed-top navbar-expand-lg navbar-transparent">
+    <div class="container-fluid">
+      <div class="navbar-nav">
+        <button class="btn btn-lg"><i class="material-icons">bar_chart</i> Stats</button></a>
+
+      </div>
+      </div>
+    </nav>
+    <div class="page-header header-filter" style="background-image: url('images/bg5.jpg');">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 ml-auto mr-auto">
+            <div class="brand text-center">
+              <h1 id="demo">Derivabator</h1>
+              <h3 class="text-center">Choose the type problem to generate:</h3>
+              <button onclick="generateProblem('d')" class="btn btn-lg btn-danger">Derivative</button>
+              <script src="scripts/problemGenerate.js"></script>
+              <button onclick="generateProblem('i')" class="btn btn-lg btn-info">Integral</button>
+            </div>
+            <div class="col-md-8 ml-auto mr-auto">
+              <div class="brand text-center">
+              <h1 id = "demo"></h1>
+              </div>
+            </div>
+            <div class="brand text-center">
+  	           <div class="form-group">
+      	          <input id = "answerBox" type="text" value="" placeholder="Enter answer here:" class="form-control" />
+  	             </div>
+            <button onclick="checkAnswer()" class="btn btn-lg btn-brand">Submit answer</button>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 ml-auto mr-auto">
+          <div class="brand text-center">
+            <h4 class="text-center">Made using Material Kit UI Kit and MathJax display engine.</h4>
+            <h4 class="text-center">Developed by: Jacob Lush, et al.</h4>
+            <h4 class="text-center">Contact jacobl4560@gmail.com with any problems or questions.</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+<script>
+function generateProblem(type){
+  var map = createArray(type);
+
+  if (localStorage.problemsGenerated) {
+    localStorage.problemsGenerated = Number(localStorage.problemsGenerated) + 1;
+  } else {
+    localStorage.problemsGenerated = 1;
+  }
+
+  for (const [key, value] of map) {
+    var text = key;
+    sessionStorage.solution = value;
+  }
+  if (type == 'i'){
+    document.getElementById("demo").innerHTML = "Find the solution to " + text;
+  } else{
+    document.getElementById("demo").innerHTML = "Find the first derivative of " + text;
+  }
+ MathJax.typeset()
+}
+
+function checkAnswer(){
+    var answer = document.getElementById("answerBox").value;
+    if (answer == sessionStorage.solution){
+      document.getElementById("demo").innerHTML = "Correct!";
+    } else{
+      document.getElementById("demo").innerHTML = "Incorrect. Answer: " + sessionStorage.solution;
+    }
+}
+
+</script>
