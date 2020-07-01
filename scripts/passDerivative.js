@@ -1,3 +1,0 @@
-function passType(){
-  return "aaaa"
-}
