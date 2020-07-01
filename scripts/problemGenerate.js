@@ -1,4 +1,52 @@
+function findSolution(type, index){
+  if (type =='d'){
+    var sol = "-2\ncos(x)\ne^x\n-sin(x)\n1/x";
+  }else if (type == 'i'){
+    var sol = "8\n1";
+  }
+  var split = sol.split('\n');
+  return split[index];
+}
 
+function generateProblem(type){
+  var map = createArray(type);
+
+  if (localStorage.problemsGenerated) {
+    localStorage.problemsGenerated = Number(localStorage.problemsGenerated) + 1;
+  } else {
+    localStorage.problemsGenerated = 1;
+  }
+
+  for (const [key, value] of map) {
+    var text = key;
+    sessionStorage.solution = value;
+  }
+  if (type == 'i'){
+    document.getElementById("title").innerHTML = "Find the solution to " + text;
+  } else{
+    document.getElementById("title").innerHTML = "Find the first derivative of " + text;
+  }
+ MathJax.typeset()
+}
+
+function checkAnswer(){
+    var answer = document.getElementById("answerBox").value;
+    if (answer == sessionStorage.solution){
+      document.getElementById("title").innerHTML = "Correct! Answer: " + answer;
+      addStats(true);
+    } else{
+      document.getElementById("title").innerHTML = "Incorrect. Answer: " + sessionStorage.solution;
+      addStats(false);
+    }
+      document.getElementById("answerBox").value = "";
+}
+
+function reportStats(){
+  var accur = 100 * localStorage.correctAnswers / localStorage.guesses;
+  accur = accur.toFixed(1);
+  document.getElementById("title").innerHTML = "Problems generated: " + localStorage.problemsGenerated + " Correct answers: "
+  + localStorage.correctAnswers + " Questions anwsered: " + localStorage.guesses + " Accuracy: " + accur + "%";
+}
 // Splits the string at every space and returns a random element from said Splits
 // Accepts a type ('d' or 'i') representing the desired type of problem.
 // Returns a problem.
@@ -24,12 +72,23 @@ function findFile(type){
   }
 }
 
-function findSolution(type, index){
-  if (type =='d'){
-    var sol = "-2\ncos(x)\ne^x\n-sin(x)\n1/x";
-  }else if (type == 'i'){
-    var sol = "8\n1";
+function addStats(correct){
+  if (correct){
+    if (localStorage.correctAnswers) {
+      localStorage.correctAnswers = Number(localStorage.correctAnswers) + 1;
+    } else {
+      localStorage.correctAnswers = 1;
+    }
+    addTotal();
+  }else{
+    addTotal();
   }
-  var split = sol.split('\n');
-  return split[index];
+}
+
+function addTotal(){
+  if (localStorage.guesses) {
+    localStorage.guesses = Number(localStorage.guesses) + 1;
+  } else {
+    localStorage.guesses = 1;
+  }
 }
