@@ -14,7 +14,7 @@
   <!-- Material Kit CSS -->
   <link href="material-kit-master/assets/css/material-kit.css?v=2.0.7" rel="stylesheet" />
   <!-- MathJax for equations -->
-  <script src="scripts/problemGenerate.js"></script>
+  <script src="scripts/masterScript.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6">
   </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
@@ -40,9 +40,8 @@
             </div>
             <div class="brand text-center">
   	           <div class="form-group">
-      	          <input id = "answerBox" type="text" value="" placeholder="Enter answer here:" class="form-control" />
+      	          <input onkeypress = "enterText(event)" id = "answerBox" value="" placeholder="Enter answer here:"/>
   	             </div>
-            <button onclick="checkAnswer()" class="btn btn-lg btn-brand">Submit answer</button>
           </div>
           </div>
         </div>
