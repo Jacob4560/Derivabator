@@ -20,13 +20,14 @@ function generateProblem(type){
 }
 
 function checkAnswer(){
+    var answer = document.getElementById("answerBox").value;
+    document.getElementById("answerBox").value = "";
     // Will not check the answer if there is no problem presented.
     // Checks if the title text is not presenting a problem (i.e waiting for an answer).
     if (checkIfProblem(document.getElementById("title").innerHTML)){
       console.log("problem not found");
       return;
     }
-    var answer = document.getElementById("answerBox").value;
     if (answer == sessionStorage.solution){
       document.getElementById("title").innerHTML = "Correct! Answer: " + answer;
       addStats(true);
@@ -34,7 +35,6 @@ function checkAnswer(){
       document.getElementById("title").innerHTML = "Incorrect. Answer: " + sessionStorage.solution;
       addStats(false);
     }
-      document.getElementById("answerBox").value = "";
 }
 
 function reportStats(){
@@ -111,7 +111,7 @@ function enterText(event){
 }
 
 function checkIfProblem(text){
-  if (text == "Derivabator" || text.includes("Correct!") || text.includes("Incorrect.")){
+  if (text == "Derivabator" || text.includes("nswer")){
     return true;
   }
 }
